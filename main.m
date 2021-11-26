@@ -43,7 +43,7 @@ while true
             axis([-2 11 -11 2]);
             grid on;
         case 2
-            [possibles, lengths, times] = possible_movs(starts);
+            [possibles, lengths] = possible_movs(starts);
         case 3
             % TODO: Алгоритм Беллмана-Форда
         case 4
@@ -52,12 +52,12 @@ while true
             % TODO: Построение оптимальной траектории
             close;
             figure(1);
-            trajectory = starts.points(ops);
-            plot([trajectory.x], [trajectory.y], 'r-o');
-            axis([-2 11 -11 2]);
+            scatter([starts.points.x], [starts.points.y], [], 'blue');
             grid on;
             hold on;
-            scatter([starts.points.x], [starts.points.y], [], 'blue');
+            axis([-2 11 -11 2]);
+            trajectory = starts.points(ops);
+            plot([trajectory.x], [trajectory.y], 'r-o');
             hold off;
         case 6
             break;
