@@ -31,35 +31,32 @@ ops = [1 3 5 7 9 10];
 % как мне построить это график?
 
 while true
-    m = menu('Find a shortest way', 'View all points', ...
-        'Transfer and Length matrix', 'Bellman–Ford algorithm', ...
-        "Dijkstra's algorithm", 'Trajectory', 'Exit');
+    m = menu('Find a shortest way', '1. Adjacency and Length Matrix', ...
+        '2. View all points', '3. Bellman–Ford algorithm', ...
+        "4. Dijkstra's algorithm", '5. Trajectory', 'Exit');
 
     switch m
         case 1
-            close;
+            [possibles, lengths] = possible_movs(starts);
+        case 2
             figure(1);
-            scatter([starts.points.x], [starts.points.y], [], 'blue');
+            % scatter([starts.points.x], [starts.points.y], [], 'blue');
+            xycoords = [starts.points.x; starts.points.y]';
+            gplot(possibles, xycoords, 'b-o');
             axis([-2 11 -11 2]);
             grid on;
-        case 2
-            [possibles, lengths] = possible_movs(starts);
         case 3
             % TODO: Алгоритм Беллмана-Форда
         case 4
             % TODO: Алгоритм Дейкстры
         case 5
-            % TODO: Построение оптимальной траектории
-            close;
-            figure(1);
-            scatter([starts.points.x], [starts.points.y], [], 'blue');
-            grid on;
             hold on;
-            axis([-2 11 -11 2]);
             trajectory = starts.points(ops);
             plot([trajectory.x], [trajectory.y], 'r-o');
             hold off;
         case 6
+            close;
             break;
     end
+    
 end
