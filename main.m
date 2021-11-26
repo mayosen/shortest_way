@@ -26,26 +26,39 @@ points(10) = dot(2, 1);
 starts.points = points;
 clear points;
 
+% допустим алгоритмов нашли вот такой путь
+ops = [1 3 5 7 9 10];
+% как мне построить это график?
+
 while true
     m = menu('Find a shortest way', 'View all points', ...
-        'Transfer matrix', 'Length matrix', 'Bellman–Ford algorithm', ...
-        "Dijkstra's algorithm", 'Exit');
+        'Transfer and Length matrix', 'Bellman–Ford algorithm', ...
+        "Dijkstra's algorithm", 'Trajectory', 'Exit');
 
     switch m
         case 1
+            close;
             figure(1);
             scatter([starts.points.x], [starts.points.y], [], 'blue');
             axis([-2 11 -11 2]);
             grid on;
         case 2
-            Possibles = possible_movs(starts);
+            [possibles, lengths, times] = possible_movs(starts);
         case 3
-            % TODO: Матрица длин (времени)
-            % Расстояние/скорость + время перезарядки
-        case 4
             % TODO: Алгоритм Беллмана-Форда
-        case 5
+        case 4
             % TODO: Алгоритм Дейкстры
+        case 5
+            % TODO: Построение оптимальной траектории
+            close;
+            figure(1);
+            trajectory = starts.points(ops);
+            plot([trajectory.x], [trajectory.y], 'r-o');
+            axis([-2 11 -11 2]);
+            grid on;
+            hold on;
+            scatter([starts.points.x], [starts.points.y], [], 'blue');
+            hold off;
         case 6
             break;
     end
