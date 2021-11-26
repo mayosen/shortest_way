@@ -6,7 +6,7 @@ clear, clc, close;
 % TODO: Ввод условий из файла
 % TODO: Перевод время подзарядки в часы или наоборот
 starts.speed = 20; % km/h
-starts.battery_life = 5; % h
+starts.battery = 5; % h
 starts.charging_time = 17; % min
 starts.scale = 30; % km
 
@@ -28,7 +28,8 @@ clear points;
 
 while true
     m = menu('Find a shortest way', 'View all points', ...
-        'Bellman–Ford algorithm', 'Exit');
+        'Transfer matrix', 'Length matrix', 'Bellman–Ford algorithm', ...
+        "Dijkstra's algorithm", 'Exit');
 
     switch m
         case 1
@@ -37,8 +38,15 @@ while true
             axis([-2 11 -11 2]);
             grid on;
         case 2
-        
+            Possibles = possible_movs(starts);
         case 3
+            % TODO: Матрица длин (времени)
+            % Расстояние/скорость + время перезарядки
+        case 4
+            % TODO: Алгоритм Беллмана-Форда
+        case 5
+            % TODO: Алгоритм Дейкстры
+        case 6
             break;
     end
 end
