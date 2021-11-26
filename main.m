@@ -26,30 +26,55 @@ points(10) = dot(2, 1);
 starts.points = points;
 clear points;
 
-% допустим алгоритмов нашли вот такой путь
+PASSED = 0;  % пройдено шагов (они обязательны)
+
+% пример оптимальной траектории для тестов
 ops = [1 3 5 7 9 10];
-% как мне построить это график?
 
 while true
     m = menu('Find a shortest way', '1. Adjacency and Length Matrix', ...
         '2. View all points', '3. Bellman–Ford algorithm', ...
-        "4. Dijkstra's algorithm", '5. Trajectory', 'Exit');
+        "4. Dijkstra's algorithm", '5. Optimal trajectory', 'Exit');
 
     switch m
         case 1
             [possibles, lengths] = possible_movs(starts);
+            PASSED = 1;
         case 2
+            if PASSED < 1
+                disp('Выполните предыдущие функции.');
+                continue
+            end
+            
             figure(1);
             % scatter([starts.points.x], [starts.points.y], [], 'blue');
             xycoords = [starts.points.x; starts.points.y]';
             gplot(possibles, xycoords, 'b-o');
             axis([-2 11 -11 2]);
             grid on;
+            PASSED = 2;
         case 3
             % TODO: Алгоритм Беллмана-Форда
+            if PASSED < 2
+                disp('Выполните предыдущие функции.');
+                continue
+            end
+            
+            PASSED = 3;
         case 4
             % TODO: Алгоритм Дейкстры
+            if PASSED < 2
+                disp('Выполните предыдущие функции.');
+                continue
+            end
+            
+            PASSED = 3;
         case 5
+            if PASSED < 3
+                disp('Выполните предыдущие функции.');
+                continue
+            end
+            
             hold on;
             trajectory = starts.points(ops);
             plot([trajectory.x], [trajectory.y], 'r-o');
@@ -60,3 +85,4 @@ while true
     end
     
 end
+
