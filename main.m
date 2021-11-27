@@ -68,6 +68,9 @@ while true
                 continue
             end
             
+            test = bellman_ford(possibles, lengths);
+            
+            
             if PASSED < 3
                 PASSED = 3;
             end
