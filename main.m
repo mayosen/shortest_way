@@ -39,7 +39,11 @@ while true
     switch m
         case 1
             [possibles, lengths] = possible_movs(starts);
-            PASSED = 1;
+            
+            if PASSED < 3
+                PASSED = 1;
+            end
+            
         case 2
             if PASSED < 1
                 disp('Выполните предыдущие функции.');
@@ -52,7 +56,11 @@ while true
             gplot(possibles, xycoords, 'b-o');
             axis([-2 11 -11 2]);
             grid on;
-            PASSED = 2;
+            
+            if PASSED < 3
+                PASSED = 2;
+            end
+            
         case 3
             % TODO: Алгоритм Беллмана-Форда
             if PASSED < 2
@@ -60,7 +68,10 @@ while true
                 continue
             end
             
-            PASSED = 3;
+            if PASSED < 3
+                PASSED = 3;
+            end
+            
         case 4
             % TODO: Алгоритм Дейкстры
             if PASSED < 2
@@ -68,7 +79,10 @@ while true
                 continue
             end
             
-            PASSED = 3;
+            if PASSED < 3
+                PASSED = 3;
+            end
+            
         case 5
             if PASSED < 3
                 disp('Выполните предыдущие функции.');
@@ -79,9 +93,11 @@ while true
             trajectory = starts.points(ops);
             plot([trajectory.x], [trajectory.y], 'r-o');
             hold off;
+            
         case 6
             close;
             break;
+            
     end
     
 end
