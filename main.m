@@ -38,7 +38,14 @@ while true
 
     switch m
         case 1
-            [possibles, lengths] = possible_movs(starts);
+            lengths = possible_movs(starts);
+            
+            %{
+            file = fopen('lengths.txt', 'w');
+            fprintf(file, '%f %f %f %f %f %f %f %f %f %f\n', lengths);
+            fclose(file);
+            %}
+            
             PASSED = 1;
         case 2
             if PASSED < 1
@@ -67,6 +74,10 @@ while true
                 disp('Выполните предыдущие функции.');
                 continue
             end
+            
+            [A, B] = dijkstra(lengths);
+            
+            
             
             PASSED = 3;
         case 5
