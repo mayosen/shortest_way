@@ -75,7 +75,7 @@ while true
                 continue
             end
             
-            test = bellman_ford(possibles, lengths);
+            [opt, cost] = bellman_ford(lengths);
             
             
             if PASSED < 3
@@ -89,7 +89,7 @@ while true
                 continue
             end
             
-            [A, B] = dijkstra(lengths);
+            [opt, cost] = dijkstra(lengths);
             
             
             
