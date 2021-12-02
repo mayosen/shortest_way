@@ -1,4 +1,4 @@
-function [A, B] = possible_movs(conds)
+function [B] = possible_movs(conds)
 % Нахождение матрицы смежности (возможных перемещений) и матрицы длин
 
 range = conds.speed * conds.battery;
