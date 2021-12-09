@@ -34,8 +34,8 @@ opt = zeros(n, 1);
 
 while true
     m = menu('Find a shortest way', '1. Adjacency and Length Matrix', ...
-        '2. View all points', '3. Bellman–Ford algorithm', ...
-        "4. Dijkstra's algorithm", '5. Optimal trajectory', 'Exit');
+        '2. View all points', ...
+        "3. Dijkstra's algorithm", '4. Optimal trajectory', 'Exit');
 
     switch m
         case 1
@@ -62,19 +62,6 @@ while true
             end
             
         case 3
-            % TODO: Алгоритм Беллмана-Форда
-            if PASSED < 2
-                disp('Выполните предыдущие функции.');
-                continue
-            end
-            
-            % [opt, cost] = bellman_ford(lengths);
-            
-            if PASSED < 3
-                PASSED = 3;
-            end
-            
-        case 4
             if PASSED < 2
                 disp('Выполните предыдущие функции.');
                 continue
@@ -86,7 +73,7 @@ while true
                 PASSED = 3;
             end
             
-        case 5
+        case 4
             if PASSED < 3
                 disp('Выполните предыдущие функции.');
                 continue
@@ -97,11 +84,13 @@ while true
             plot([trajectory.x], [trajectory.y], 'r-o');
             hold off;
             
-        case 6
+        case 5
             close;
             break;
             
     end
     
 end
+
+
 
