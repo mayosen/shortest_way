@@ -10,8 +10,8 @@ starts.battery = 5; % h
 starts.charging_time = 17; % min
 starts.scale = 30; % km
 
-n = 8;
-points = repmat(struct('x', 0, 'y', 0), [n + 2 1]);
+n = 10;
+points = repmat(struct('x', 0, 'y', 0), [n 1]);
 points(1) = dot(10, -8);
 points(2) = dot(6, -8);
 points(3) = dot(8, -7);
@@ -29,7 +29,8 @@ clear points;
 PASSED = 0;  % пройдено шагов (они обязательны)
 
 % пример оптимальной траектории для тестов
-ops = [1 3 5 7 9 10];
+% opt = [1 3 5 7 9 10];
+opt = zeros(n, 1);
 
 while true
     m = menu('Find a shortest way', '1. Adjacency and Length Matrix', ...
@@ -38,18 +39,11 @@ while true
 
     switch m
         case 1
-            lengths = possible_movs(starts);
-            
-            %{
-            file = fopen('lengths.txt', 'w');
-            fprintf(file, '%f %f %f %f %f %f %f %f %f %f\n', lengths);
-            fclose(file);
-            %}
-            
+            [possibles, lengths] = possible_movs(starts);
+                        
             if PASSED < 3
                 PASSED = 1;
             end
-            
             
         case 2
             if PASSED < 1
@@ -58,7 +52,6 @@ while true
             end
             
             figure(1);
-            % scatter([starts.points.x], [starts.points.y], [], 'blue');
             xycoords = [starts.points.x; starts.points.y]';
             gplot(possibles, xycoords, 'b-o');
             axis([-2 11 -11 2]);
@@ -75,23 +68,19 @@ while true
                 continue
             end
             
-            [opt, cost] = bellman_ford(lengths);
-            
+            % [opt, cost] = bellman_ford(lengths);
             
             if PASSED < 3
                 PASSED = 3;
             end
             
         case 4
-            % TODO: Алгоритм Дейкстры
             if PASSED < 2
                 disp('Выполните предыдущие функции.');
                 continue
             end
             
             [opt, cost] = dijkstra(lengths);
-            
-            
             
             if PASSED < 3
                 PASSED = 3;
@@ -104,7 +93,7 @@ while true
             end
             
             hold on;
-            trajectory = starts.points(ops);
+            trajectory = starts.points(opt);
             plot([trajectory.x], [trajectory.y], 'r-o');
             hold off;
             
