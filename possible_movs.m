@@ -25,7 +25,7 @@ for i = 1:1:n
             B(j, i) = Inf;
         end
         
-        fprintf('(%2i, %2i) %i %f\n', i, j, A(i, j), B(i, j));
+        fprintf('(%2i, %2i) %f\n', i, j, B(i, j));
         
     end
     
