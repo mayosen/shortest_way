@@ -1,14 +1,13 @@
-% coursework: shortest_way
-% вариант 5
+% coursework "shortest_way"
+% var 5
 
 clear, clc, close;
 
-% TODO: Ввод условий из файла
-% TODO: Перевод время подзарядки в часы или наоборот
-starts.speed = 20; % km/h
-starts.battery = 5; % h
-starts.charging_time = 17; % min
-starts.scale = 30; % km
+starts.speed = 20;                  % km/h
+starts.battery = 5;                 % h
+starts.charging = 17;               % min
+starts.scale = 30;                  % km
+starts.time = datetime('14:00', 'InputFormat', 'HH:mm');
 
 n = 10;
 points = repmat(struct('x', 0, 'y', 0), [n 1]);
@@ -22,61 +21,64 @@ points(7) = dot(6, -2);
 points(8) = dot(3, -1);
 points(9) = dot(5, 0);
 points(10) = dot(2, 1);
-
 starts.points = points;
 clear points;
 
-PASSED = 0;  % пройдено шагов (они обязательны)
-
-% пример оптимальной траектории для тестов
-% opt = [1 3 5 7 9 10];
+PASSED = 0;
 opt = zeros(n, 1);
 
 while true
-    m = menu('Find a shortest way', '1. Adjacency and Length Matrix', ...
-        '2. View all points', '3. Bellman–Ford algorithm', ...
-        "4. Dijkstra's algorithm", '5. Optimal trajectory', 'Exit');
+    m = menu('Find a shortest way', ...
+        '--TEST--', ...            % 'Load coordinates'
+        'Build graph', ...
+        'View graph', ... 
+        "Dijkstra's algorithm", ...
+        'Optimal trajectory', ...
+        'Hit the road', ...
+        'Exit');
 
     switch m
         case 1
+            % load coordinates
+            % TODO: Ввод условий из файла
+            
+            % все команды для теста
+            [possibles, lengths] = possible_movs(starts);
+            
+            plot_graph(1, starts, possibles);
+            
+            [opt, cost] = dijkstra(lengths);
+            
+            figure(1);
+            hold on;
+            trajectory = starts.points(opt);
+            plot([trajectory.x], [trajectory.y], 'r-o');
+            hold off;
+            
+            nmea(starts, trajectory);
+            
+        case 2
             [possibles, lengths] = possible_movs(starts);
                         
             if PASSED < 3
                 PASSED = 1;
             end
             
-        case 2
+        case 3
             if PASSED < 1
-                disp('Выполните предыдущие функции.');
+                disp('Выполните предыдущие шаги.');
                 continue
             end
             
-            figure(1);
-            xycoords = [starts.points.x; starts.points.y]';
-            gplot(possibles, xycoords, 'b-o');
-            axis([-2 11 -11 2]);
-            grid on;
+            plot_graph(1, starts, possibles);
             
             if PASSED < 3
                 PASSED = 2;
             end
             
-        case 3
-            % TODO: Алгоритм Беллмана-Форда
-            if PASSED < 2
-                disp('Выполните предыдущие функции.');
-                continue
-            end
-            
-            % [opt, cost] = bellman_ford(lengths);
-            
-            if PASSED < 3
-                PASSED = 3;
-            end
-            
         case 4
             if PASSED < 2
-                disp('Выполните предыдущие функции.');
+                disp('Выполните предыдущие шаги.');
                 continue
             end
             
@@ -88,20 +90,32 @@ while true
             
         case 5
             if PASSED < 3
-                disp('Выполните предыдущие функции.');
+                disp('Выполните предыдущие шаги.');
                 continue
             end
             
+            close;
+            plot_graph(1, starts, possibles);
             hold on;
             trajectory = starts.points(opt);
             plot([trajectory.x], [trajectory.y], 'r-o');
             hold off;
-            
+        
         case 6
-            close;
+            nmea(starts, trajectory);
+            
+            if PASSED < 3
+                disp('Выполните предыдущие шаги.');
+                continue
+            end
+            
+        case 7
+            % close;
             break;
             
     end
     
 end
+
+
 
