@@ -12,9 +12,9 @@ for i = 2:1:n
     D(i) = lengths(1, i);
 end
 
-fprintf('D(%2i) = ', 1);
+fprintf('D(%02i) = ', 1);
 fprintf('%6.1f ', D);
-fprintf('\nInd(%i) = ', 1);
+fprintf('\nInd(%02i) = ', 1);
 fprintf('%i ', Ind(Ind>0));
 fprintf('\n\n');
 
@@ -37,9 +37,9 @@ for i = 1:1:n-1
     end
     Ind(i + 1) = w;
     
-    fprintf('D(%2i) = ', i + 1);
+    fprintf('D(%02i) = ', i + 1);
     fprintf('%6.1f ', D);
-    fprintf('\nInd(%i) = ', i + 1);
+    fprintf('\nInd(%02i) = ', i + 1);
     fprintf('%i ', Ind(Ind>0));
     fprintf('\n\n');
     

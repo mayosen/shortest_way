@@ -10,12 +10,6 @@ turn = 'N';
 finished = 'N';
 
 for i = 1:1:length(trajectory)-1
-    hrs = str2num(datestr(time, 'HH'));
-    mins = str2num(datestr(time, 'MM'));
-    
-    % расчет расстояние до ближайшей вершины
-    % выходит за пределы массива скорее всего
-    
     dx = trajectory(i+1).x - trajectory(i).x;
     dy = trajectory(i+1).y - trajectory(i).y;
     dist = sqrt((dx)^2 + (dy)^2) * starts.scale;
@@ -29,15 +23,13 @@ for i = 1:1:length(trajectory)-1
     end
     
     prev_angle = angle;
-    fprintf(format, hrs, mins, dist, turn, angle, finished);
+    fprintf(format, hour(time), minute(time), dist, turn, angle, finished);
     time = time + minutes(dist * 60 / starts.speed) + ...
            minutes(starts.charging);
 
 end
 
-hrs = str2num(datestr(time, 'HH'));
-mins = str2num(datestr(time, 'MM'));
-fprintf(format, hrs, mins, 0, 'N', 0, 'E');
+fprintf(format, hour(time), minute(time), 0, 'N', 0, 'E');
 
 end
 
