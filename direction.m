@@ -13,7 +13,7 @@ elseif dy == 0
     else
         angle = 180;
     end
-elseif     dx > 0 && dy > 0
+elseif dx > 0 && dy > 0
     angle = 360 - atand(dy/dx);
 elseif dx > 0 && dy < 0
     angle = 0 + atand(-dy/dx);

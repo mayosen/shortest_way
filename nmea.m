@@ -13,9 +13,6 @@ for i = 1:1:length(trajectory)-1
     hrs = str2num(datestr(time, 'HH'));
     mins = str2num(datestr(time, 'MM'));
     
-    % расчет расстояние до ближайшей вершины
-    % выходит за пределы массива скорее всего
-    
     dx = trajectory(i+1).x - trajectory(i).x;
     dy = trajectory(i+1).y - trajectory(i).y;
     dist = sqrt((dx)^2 + (dy)^2) * starts.scale;
