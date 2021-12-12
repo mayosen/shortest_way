@@ -7,7 +7,6 @@ time = starts.time;
 angle = 0;
 prev_angle = 0;
 turn = 'N';
-finished = 'N';
 
 for i = 1:1:length(trajectory)-1
     dx = trajectory(i+1).x - trajectory(i).x;
@@ -23,7 +22,7 @@ for i = 1:1:length(trajectory)-1
     end
     
     prev_angle = angle;
-    fprintf(format, hour(time), minute(time), dist, turn, angle, finished);
+    fprintf(format, hour(time), minute(time), dist, turn, angle, 'N');
     time = time + minutes(dist * 60 / starts.speed) + ...
            minutes(starts.charging);
 
