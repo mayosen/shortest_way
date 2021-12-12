@@ -1,45 +1,61 @@
 function nmea(starts, trajectory)
 % Вывод NMEA-сообщений
 
-% TODO: сделаем-ка тут проверку длины пути
-% будем суммировать и в конце выведем
+format = '$UTHDG,%02i,%02i,%2.1f,%c,%2.1f,%c\n';
 time = starts.time;
-charging = starts.charging_time;
 
-format = '$UTHDG,%02i,%3.1f,%5.2f,%c,%3.1f,%c\n';
-angle_prev = 0;
+angle = 0;
+prev_angle = 0;
+turn = 'N';
+finished = 'N';
 
-for i = 1:1:length(trajectory)
-    hours = str2num(datestr(time, 'HH'));
-    minutes = str2num(datestr(time, 'mm'));
+for i = 1:1:length(trajectory)-1
+    hrs = str2num(datestr(time, 'HH'));
+    mins = str2num(datestr(time, 'MM'));
     
-    % расчет длины до ближайшей вершины
+    % расчет расстояние до ближайшей вершины
     % выходит за пределы массива скорее всего
-    x1 = trajectory(i).x;
-    y1 = trajectory(i).y;
-    x2 = trajectory(i+1).x;
-    y2 = trajectory(i+1).y;
-    dist = sqrt((x1 - x2)^2 + (y1 - y2)^2) * 30;
     
-    angle = 270 + atand((x2 - x1)/(y2 - y1));  
+    dx = trajectory(i+1).x - trajectory(i).x;
+    dy = trajectory(i+1).y - trajectory(i).y;
+    dist = sqrt((dx)^2 + (dy)^2) * starts.scale;
     
-    % остаток от деления на 360?
-    % еще проблема, что atand возращает углы от -90 до 90
-    
-    if (angle == angle_prev) || (i == 1)
-        turn = 'T';
+    if dx == 0
+        if dy > 0
+            angle = 270;
+        else
+            angle = 90;
+        end
+    elseif dy == 0
+        if dx > 0
+            angle = 0;
+        else
+            angle = 180;
+        end
+    elseif     dx > 0 && dy > 0
+        angle = 360 - atand(dy/dx);
+    elseif dx > 0 && dy < 0
+        angle = 0 + atand(-dy/dx);
     else
+        angle = 180 - atand(dy/dx);
+    end    
+    
+    if angle ~= prev_angle || i == 1
+        turn = 'T';
+    else 
         turn = 'N';
     end
     
-    
-    fprintf(format, hours, minutes, dist, turn, angle, 'N');
-    
-    angle_prev = angle;
-
+    prev_angle = angle;
+    fprintf(format, hrs, mins, dist, turn, angle, finished);
+    time = time + minutes(dist * 60 / starts.speed) + ...
+           minutes(starts.charging);
 
 end
 
+hrs = str2num(datestr(time, 'HH'));
+mins = str2num(datestr(time, 'MM'));
+fprintf(format, hrs, mins, 0, 'N', 0, 'E');
 
 end
 

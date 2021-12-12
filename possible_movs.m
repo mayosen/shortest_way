@@ -2,7 +2,7 @@ function [A, B] = possible_movs(conds)
 % Нахождение матрицы смежности (возможных перемещений) и матрицы длин
 
 range = conds.speed * conds.battery;
-fprintf('range = %f\n', range);
+% fprintf('range = %f\n', range);
 points = conds.points;
 n = size(points, 1);
 A = zeros(n); % возможные перемещения
@@ -11,7 +11,7 @@ B = zeros(n); % длина этих перемещений
 for i = 1:1:n
     for j = i+1:1:n
         dist = sqrt((points(j).x - points(i).x)^2 + ...
-            (points(j).y - points(i).y)^2) * 30;
+            (points(j).y - points(i).y)^2) * conds.scale;
         
         if dist <= range
             A(i, j) = 1;
@@ -25,7 +25,7 @@ for i = 1:1:n
             B(j, i) = Inf;
         end
         
-        fprintf('(%2i, %2i) %f\n', i, j, B(i, j));
+        % fprintf('(%2i, %2i) %f\n', i, j, B(i, j));
         
     end
     

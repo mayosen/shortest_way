@@ -12,12 +12,19 @@ for i = 2:1:n
     D(i) = lengths(1, i);
 end
 
+fprintf('D(%2i) = ', 1);
+fprintf('%6.1f ', D);
+fprintf('\nInd(%i) = ', 1);
+fprintf('%i ', Ind(Ind>0));
+fprintf('\n\n');
+
 for i = 1:1:n-1
     
     % выбор вершины w, такой что она не принадлежит Ind и 
     % и D(w) минимально
     min_dw = inf;   
     w = -1;
+    
     for j = 1:1:n
         if ismember(j, Ind)
             continue
@@ -29,6 +36,12 @@ for i = 1:1:n-1
         end
     end
     Ind(i + 1) = w;
+    
+    fprintf('D(%2i) = ', i + 1);
+    fprintf('%6.1f ', D);
+    fprintf('\nInd(%i) = ', i + 1);
+    fprintf('%i ', Ind(Ind>0));
+    fprintf('\n\n');
     
     % обновление расстояний до вершин
     for k = 1:1:n
@@ -43,6 +56,7 @@ for i = 1:1:n-1
             end
         end 
     end
+    
 end
 
 cost = D(n);

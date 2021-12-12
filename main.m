@@ -3,12 +3,11 @@
 
 clear, clc, close;
 
-% TODO: Перевод время подзарядки в часы или наоборот
 starts.speed = 20;                  % km/h
 starts.battery = 5;                 % h
-starts.charging_time = 17;          % min
+starts.charging = 17;               % min
 starts.scale = 30;                  % km
-starts.time = datetime('00:00', 'InputFormat', 'HH:mm');
+starts.time = datetime('14:21', 'InputFormat', 'HH:mm');
 
 n = 10;
 points = repmat(struct('x', 0, 'y', 0), [n 1]);
@@ -31,7 +30,7 @@ opt = zeros(n, 1);
 
 while true
     m = menu('Find a shortest way', ...
-        'Load coordinates', ...
+        '--TEST--', ...            % 'Load coordinates', ...
         'Build graph', ...
         'View graph', ... 
         "Dijkstra's algorithm", ...
@@ -42,8 +41,22 @@ while true
     switch m
         case 1
             % load coordinates
-            
             % TODO: Ввод условий из файла
+            
+            % все команды для теста
+            [possibles, lengths] = possible_movs(starts);
+            
+            plot_graph(1, starts, possibles);
+            
+            [opt, cost] = dijkstra(lengths);
+            
+            figure(1);
+            hold on;
+            trajectory = starts.points(opt);
+            plot([trajectory.x], [trajectory.y], 'r-o');
+            hold off;
+            
+            nmea(starts, trajectory);
             
         case 2
             [possibles, lengths] = possible_movs(starts);
@@ -59,20 +72,6 @@ while true
             end
             
             plot_graph(1, starts, possibles);
-            
-            %{
-            figure(1);
-            xycoords = [starts.points.x; starts.points.y]';
-            gplot(possibles, xycoords, 'b-o');
-            axis([-2 11 -11 2]);
-            grid on;
-            
-            % нанесение номеров точек на граф
-            for i=1:length(xycoords) 
-                text(xycoords(i, 1) + 0.1, xycoords(i, 2) - 0.1, ...
-                    num2str(i)); 
-            end
-            %}
             
             if PASSED < 3
                 PASSED = 2;
@@ -104,16 +103,15 @@ while true
             hold off;
         
         case 6
-            % NMEA
-            
             nmea(starts, trajectory);
             
             if PASSED < 3
                 disp('Выполните предыдущие шаги.');
                 continue
             end
+            
         case 7
-            close;
+            % close;
             break;
             
     end
