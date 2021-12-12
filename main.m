@@ -7,7 +7,7 @@ starts.speed = 20;                  % km/h
 starts.battery = 5;                 % h
 starts.charging = 17;               % min
 starts.scale = 30;                  % km
-starts.time = datetime('14:21', 'InputFormat', 'HH:mm');
+starts.time = datetime('14:00', 'InputFormat', 'HH:mm');
 
 n = 10;
 points = repmat(struct('x', 0, 'y', 0), [n 1]);
@@ -21,7 +21,6 @@ points(7) = dot(6, -2);
 points(8) = dot(3, -1);
 points(9) = dot(5, 0);
 points(10) = dot(2, 1);
-
 starts.points = points;
 clear points;
 
@@ -30,11 +29,11 @@ opt = zeros(n, 1);
 
 while true
     m = menu('Find a shortest way', ...
-        '--TEST--', ...            % 'Load coordinates', ...
+        '--TEST--', ...            % 'Load coordinates'
         'Build graph', ...
         'View graph', ... 
         "Dijkstra's algorithm", ...
-        'View optimal trajectory', ...
+        'Optimal trajectory', ...
         'Hit the road', ...
         'Exit');
 
