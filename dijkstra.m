@@ -56,16 +56,14 @@ for i = 1:1:n-1
             end
         end 
     end
-    
 end
 
 cost = D(n);
-
 opt = zeros(n, 1);
 opt(1) = n;
 parent = P(n);
-
 i = 2;
+
 while parent ~= 1
     opt(i) = parent;
     parent = P(parent);
