@@ -25,6 +25,8 @@ while true
     switch m
         case 1
             starts.points = file_read('coords.txt');
+            disp('Точки:');
+            disp([[starts.points.x]; [starts.points.y]]');
             PASSED = 1;
             
         case 2
@@ -33,6 +35,10 @@ while true
                 continue
             elseif PASSED == 1
                 [possibles, lengths] = possible_movs(starts);
+                disp('Матрица возможных перемещений:');
+                disp(possibles);
+                disp('Матрица длин:');
+                disp(lengths);
                 PASSED = 2;
             else
                 continue
@@ -52,6 +58,10 @@ while true
                 continue
             elseif PASSED == 2
                 [opt, cost] = dijkstra(lengths);
+                disp('Оптимальная траектория:');
+                disp(opt');
+                disp('Стоимость пути:');
+                disp(cost);
                 PASSED = 3;
             else
                 continue

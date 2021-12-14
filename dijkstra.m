@@ -12,11 +12,12 @@ for i = 2:1:n
     D(i) = lengths(1, i);
 end
 
-fprintf('D(%02i) = ', 1);
-fprintf('%6.1f ', D);
-fprintf('\nInd(%02i) = ', 1);
-fprintf('%i ', Ind(Ind>0));
-fprintf('\n\n');
+disp('Кратчайшие пути и учтенные вершины:');
+fprintf('D(%i) = ', 1);
+disp(D');
+fprintf('Ind(%i) = ', 1);
+disp(Ind(Ind>0)');
+fprintf('\n');
 
 for i = 1:1:n-1
     
@@ -37,11 +38,11 @@ for i = 1:1:n-1
     end
     Ind(i + 1) = w;
     
-    fprintf('D(%02i) = ', i + 1);
-    fprintf('%6.1f ', D);
-    fprintf('\nInd(%02i) = ', i + 1);
-    fprintf('%i ', Ind(Ind>0));
-    fprintf('\n\n');
+    fprintf('D(%i) = ', i);
+    disp(D');
+    fprintf('Ind(%i) = ', i);
+    disp(Ind(Ind>0)');
+    fprintf('\n');
     
     % обновление расстояний до вершин
     for k = 1:1:n
