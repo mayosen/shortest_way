@@ -79,18 +79,20 @@ while true
             trajectory = starts.points(opt);
             plot([trajectory.x], [trajectory.y], 'r-o');
             hold off;
+            PASSED = 4;
         
         case 6
-            if PASSED < 3
+            if PASSED < 4
                 disp('Выполните предыдущие шаги.');
                 continue
             end
             
+            disp('NMEA-сообщения:');
             [messages, takes] = nmea(starts, trajectory);
-            PASSED = 4;
+            PASSED = 5;
         
         case 7
-            if PASSED < 4
+            if PASSED < 5
                 disp('Выполните предыдущие шаги.');
                 continue
             end

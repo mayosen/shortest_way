@@ -17,7 +17,7 @@ fprintf('D(%i) = ', 1);
 disp(D');
 fprintf('Ind(%i) = ', 1);
 disp(Ind(Ind>0)');
-fprintf('\n');
+% fprintf('\n');
 
 for i = 1:1:n-1
     
@@ -38,11 +38,11 @@ for i = 1:1:n-1
     end
     Ind(i + 1) = w;
     
-    fprintf('D(%i) = ', i);
+    fprintf('D(%i) = ', i+1);
     disp(D');
-    fprintf('Ind(%i) = ', i);
+    fprintf('Ind(%i) = ', i+1);
     disp(Ind(Ind>0)');
-    fprintf('\n');
+    % fprintf('\n');
     
     % обновление расстояний до вершин
     for k = 1:1:n
