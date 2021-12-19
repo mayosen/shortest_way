@@ -5,8 +5,8 @@ range = conds.speed * conds.battery;
 % fprintf('range = %f\n', range);
 points = conds.points;
 n = size(points, 1);
-A = zeros(n); % возможные перемещения
-B = zeros(n); % длина этих перемещений
+A = zeros(n);       % возможные перемещения
+B = zeros(n);       % длина этих перемещений
 
 for i = 1:1:n
     for j = i+1:1:n
