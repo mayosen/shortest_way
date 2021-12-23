@@ -34,7 +34,7 @@ for i = 1:1:n-1
 
 end
 
-% в последней точке не считаем время заправки
+% В последней точке не считаем время заправки
 time = time - minutes(starts.charging);   
 takes = time - takes;
 

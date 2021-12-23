@@ -5,8 +5,8 @@ range = conds.speed * conds.battery;
 % fprintf('range = %f\n', range);
 points = conds.points;
 n = size(points, 1);
-A = zeros(n);               % возможные перемещения
-B = zeros(n);               % длина этих перемещений
+A = zeros(n);               % Возможные перемещения
+B = zeros(n);               % Длина этих перемещений
 problems = repmat(struct('i', 0, 'x', 0, ...
            'y', 0), [n 1]);
 err = false;
@@ -27,8 +27,6 @@ for i = 1:1:n
             B(i, j) = Inf;
             B(j, i) = Inf;
         end
-        
-        % fprintf('(%2i, %2i) %f\n', i, j, B(i, j));
         
     end
     

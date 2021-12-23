@@ -20,8 +20,8 @@ disp(Ind(Ind>0)');
 
 for i = 1:1:n-1
     
-    % выбор вершины w, такой что она не принадлежит Ind и 
-    % и D(w) минимально
+    % Выбор вершины w такой, 
+    % что она не принадлежит Ind и и D(w) минимально
     min_dw = inf;   
     w = -1;
     
@@ -31,8 +31,6 @@ for i = 1:1:n-1
         elseif D(j) < min_dw
             min_dw = D(j);
             w = j;
-        else
-            continue
         end
     end
     Ind(i + 1) = w;
@@ -42,7 +40,7 @@ for i = 1:1:n-1
     fprintf('Ind(%i) = ', i+1);
     disp(Ind(Ind>0)');
     
-    % обновление расстояний до вершин
+    % Обновление расстояний до вершин
     for k = 1:1:n
         if ismember(k, Ind)
             continue
@@ -51,7 +49,6 @@ for i = 1:1:n-1
             if weight < D(k)
                 D(k) = weight;
                 P(k) = w;
-            % иначе вес оставляем прежним
             end
         end 
     end
