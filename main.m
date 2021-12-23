@@ -33,8 +33,12 @@ while true
             if PASSED < 1
                 disp('Выполните предыдущие шаги.');
                 continue
-            elseif PASSED == 1
-                [possibles, lengths] = possible_movs(starts);
+            elseif PASSED == 1                
+                [possibles, lengths, err] = possible_movs(starts);
+                if err
+                    continue
+                end
+                
                 disp('Матрица возможных перемещений:');
                 disp(possibles);
                 disp('Матрица длин:');
@@ -50,7 +54,7 @@ while true
                 continue
             end
             
-            plot_graph(1, starts, possibles);
+            plot_graph(1, starts, possibles, 2);
             
         case 4
             if PASSED < 2
@@ -74,7 +78,7 @@ while true
             end
             
             close;
-            plot_graph(1, starts, possibles);
+            plot_graph(1, starts, possibles, 2);
             hold on;
             trajectory = starts.points(opt);
             plot([trajectory.x], [trajectory.y], 'r-o');

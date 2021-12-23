@@ -1,10 +1,12 @@
-function plot_graph(n, starts, possibles)
+function plot_graph(n, starts, possibles, offset)
 % Построение графа
 
 figure(n);
 xycoords = [starts.points.x; starts.points.y]';
 gplot(possibles, xycoords, 'b-o');
-axis([-2 11 -11 2]);
+% axis([-2 11 -11 2]);
+axis([min([starts.points.x]) - offset, max([starts.points.x]) + offset, ...
+    min([starts.points.y]) - offset, max([starts.points.y]) + offset]);
 grid on;
 
 % Нанесение номеров точек на граф
