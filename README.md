@@ -6,10 +6,10 @@
 ## Скриншоты
 
 Menu:  
-![menu](img/menu.png "Menu")
+![menu](img/menu.png "Menu")  
 Graph:  
-![graph](img/graph.png "Graph")
+![graph](img/graph.png "Graph")  
 Trajectory:  
-![trajectory](img/trajectory.png "Trajectory")
+![trajectory](img/trajectory.png "Trajectory")  
 Results:  
-![results](img/results.png "Results")
+![results](img/results.png "Results")  
