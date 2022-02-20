@@ -1,13 +1,14 @@
 function file_write(name, opt, cost, messages, takes)
+    % Запись результатов работы программы в файл.
+    
+    file = fopen(name, 'w');
 
-file = fopen(name, 'w');
+    fprintf(file, "%s\n", datestr(takes, "HH:MM"));
+    fprintf(file, "%.3f\n", cost);
+    fprintf(file, "%i ", opt);
+    fprintf(file, "\n");
+    fprintf(file, "%s", messages);
 
-fprintf(file, "%s\n", datestr(takes, "HH:MM"));
-fprintf(file, "%.3f\n", cost);
-fprintf(file, "%i ", opt);
-fprintf(file, "\n");
-fprintf(file, "%s", messages);
-
-fclose(file);
+    fclose(file);
 
 end
